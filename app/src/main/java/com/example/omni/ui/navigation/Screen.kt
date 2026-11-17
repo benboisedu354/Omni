@@ -2,6 +2,7 @@ package com.example.omni.ui.navigation
 
 sealed class Screen(val route: String) {
     object Splash : Screen("splash")
+    object IndexPage : Screen(route = "index_page")
     object Dashboard : Screen("dashboard")
     object Todo : Screen("todo")
     object Challenges : Screen("challenges")

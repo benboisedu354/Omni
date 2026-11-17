@@ -107,7 +107,7 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             OmniTopBar(
-                title = "Rappels & Notifications",
+                title = "Paramètres des notifications",
                 onBack = onBack,
                 accentColor = OmniBlue
             )
