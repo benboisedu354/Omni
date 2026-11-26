@@ -18,11 +18,12 @@ import com.example.omni.ui.modules.clock.ClockScreen
 import com.example.omni.ui.modules.dashboard.DashboardScreen
 import com.example.omni.ui.modules.gps.GpsScreen
 import com.example.omni.ui.modules.sensors.SensorsScreen
-import com.example.omni.ui.modules.settings.SettingsScreen
 import com.example.omni.ui.modules.splash.SplashScreen
 import com.example.omni.ui.modules.todo.TodoScreen
 import com.example.omni.ui.modules.weather.WeatherScreen
 import com.example.omni.ui.modules.index_page.IndexPageScreen
+import com.example.omni.ui.modules.settings.SettingsScreen
+import com.example.omni.ui.modules.notifications.NotificationsSettingsScreen
 
 @Composable
 fun OmniNavGraph(
@@ -121,8 +122,14 @@ fun OmniNavGraph(
                 CalendarScreen(onBack = { navController.popBackStack() })
             }
 
+            composable(Screen.NotificationsSettings.route) {
+                NotificationsSettingsScreen(onBack = { navController.popBackStack() })
+            }
+
             composable(Screen.Settings.route) {
-                SettingsScreen(onBack = { navController.popBackStack() })
+                SettingsScreen(
+                    onBack = { navController.popBackStack() },
+                )
             }
         }
     }

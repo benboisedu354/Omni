@@ -26,17 +26,14 @@ import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Explore
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Sensors
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -187,7 +184,7 @@ fun DashboardScreen(
 
                             Column {
                                 Text(
-                                    text = "OMNI",
+                                    text = "Toutes les appli",
                                     fontSize = 22.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     letterSpacing = 1.sp,
@@ -201,22 +198,6 @@ fun DashboardScreen(
                             }
                         }
 
-                        Surface(
-                            shape = RoundedCornerShape(999.dp),
-                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.92f),
-                            tonalElevation = 1.dp,
-                            shadowElevation = 0.dp
-                        ) {
-                            IconButton(
-                                onClick = { onNavigate(Screen.Settings.route) },
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Notifications,
-                                    contentDescription = "Rappels & notifications",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
                     }
 
                     Spacer(modifier = Modifier.height(18.dp))

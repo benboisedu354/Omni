@@ -1,5 +1,6 @@
 package com.example.omni.ui.modules.weather
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Air
@@ -48,6 +48,7 @@ import com.example.omni.data.model.WeatherCodeHelper
 import com.example.omni.ui.components.OmniTopBar
 import com.example.omni.ui.theme.OmniSky
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun WeatherScreen(
     onBack: () -> Unit,

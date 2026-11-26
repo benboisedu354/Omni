@@ -22,6 +22,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AllInclusive
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +31,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,22 +42,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.omni.data.model.WeatherCodeHelper
 import com.example.omni.ui.navigation.Screen
 import com.example.omni.ui.theme.OmniBlue
 import com.example.omni.ui.theme.OmniPurple
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.example.omni.ui.modules.weather.WeatherViewModel
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun IndexPageScreen(
     onNavigate: (String) -> Unit,
+    viewModel: WeatherViewModel = viewModel()
 ) {
     val currentDateStr = remember {
         val sdf = SimpleDateFormat("EEEE d MMMM", Locale.FRENCH)
         sdf.format(Date()).replaceFirstChar { it.uppercase() }
     }
+
+    val weather by viewModel.weatherState.collectAsState()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -122,7 +134,7 @@ fun IndexPageScreen(
                             shadowElevation = 0.dp
                         ) {
                             IconButton(
-                                onClick = { onNavigate(Screen.Settings.route) },
+                                onClick = { onNavigate(Screen.NotificationsSettings.route) },
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Notifications,
@@ -132,8 +144,63 @@ fun IndexPageScreen(
                             }
                         }
                     }
-
                     Spacer(modifier = Modifier.height(18.dp))
+
+                    Card(
+                        shape = RoundedCornerShape(24.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f)
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    Brush.linearGradient(
+                                        colors = listOf(
+                                            OmniPurple.copy(alpha = 0.18f),
+                                            OmniBlue.copy(alpha = 0.08f),
+                                            Color.Transparent
+                                        )
+                                    )
+                                )
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(18.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = weather?.cityName ?: "Météo locale",
+                                    fontSize = 16.sp,
+                                    lineHeight = 18.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+                                    val weatherEmoji = weather?.let { WeatherCodeHelper.getIconEmoji(it.weatherCode) } ?: "❓"
+                                    Text(
+                                        text = "${weather?.temperature?.toInt() ?: "--"}°C",
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = weatherEmoji,
+                                        fontSize = 30.sp
+                                    )
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }

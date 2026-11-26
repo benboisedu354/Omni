@@ -11,5 +11,7 @@ sealed class Screen(val route: String) {
     object Gps : Screen("gps")
     object Sensors : Screen("sensors")
     object Calendar : Screen("calendar")
+
     object Settings : Screen("settings")
+    object NotificationsSettings : Screen("NotificationsSettings")
 }
